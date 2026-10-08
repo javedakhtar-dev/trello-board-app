@@ -4,10 +4,9 @@ function authMiddleware (req, res, next) {
      const token = req.headers.token;
      
      const decoded = jwt.verify(token, "organization-super-secret-key");
-     const userId = decoded.userId;
 
-     if(userId) {
-        req.userId = userId;
+     if(decoded) {
+        req.userId = decoded.userId;
         next();
      } else {
         res.status(411).json({
